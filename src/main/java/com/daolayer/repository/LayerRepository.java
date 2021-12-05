@@ -1,45 +1,47 @@
 package com.daolayer.repository;
 
+import com.daolayer.entity.orders.Order;
+import com.daolayer.entity.persons.Persons;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
-import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 @Repository
 public class LayerRepository {
-    private String myScript = read("myScript.sql");
+    private String myScriptOrders = read("myScriptOrders.sql");
+    private String myScriptPersons = read("myScriptPersons.sql");
 
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
-
+    @PersistenceContext
+    private EntityManager entityManager;
 
     public String getProductName(String name) {
-        Order order = namedParameterJdbcTemplate.queryForObject(myScript,
+        Order order = namedParameterJdbcTemplate.queryForObject(myScriptOrders,
                 Map.of("name", name,
                         "product_name", " "),
                 (rs, rowNum) -> new Order(rs.getString("product_name")));
         return order.toString();
+    }
+
+    public List getPersonsByCity(String city) {
+        Query query = entityManager.createQuery(myScriptPersons, Persons.class);
+        query.setParameter("cityOfLiving", city.toUpperCase());
+        query.getResultList().forEach(System.out::println);
+        return query.getResultList();
     }
 
     private static String read(String scriptFileName) {
@@ -48,23 +50,6 @@ public class LayerRepository {
             return bufferedReader.lines().collect(Collectors.joining("\n"));
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }
-    }
-
-    public static class Order {
-        private String productName;
-
-        public Order(String productName) {
-            this.productName = productName;
-        }
-
-        public String getProductName() {
-            return productName;
-        }
-
-        @Override
-        public String toString() {
-            return productName;
         }
     }
 }

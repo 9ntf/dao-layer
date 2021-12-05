@@ -1,0 +1,1 @@
+select p from Persons p where p.cityOfLiving = :cityOfLiving
