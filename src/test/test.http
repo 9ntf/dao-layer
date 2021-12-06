@@ -2,5 +2,5 @@ GET localhost:8080/persons/by-city?city=vladivostok
 Accept: application/json
 
 ###
-GET localhost:8080/products/fetch-product?name=elena
+GET localhost:8080/products/fetch-product?name=Alex
 Accept: application/json

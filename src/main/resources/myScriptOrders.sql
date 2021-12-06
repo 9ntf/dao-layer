@@ -1,4 +1,1 @@
-SELECT O.product_name
-FROM ORDERS O
-         JOIN CUSTOMERS C on O.customer_id = C.id
-WHERE LOWER(C.name) = :name;
+select o from Order o inner join Customer c where c.name = :name

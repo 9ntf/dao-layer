@@ -1,16 +1,21 @@
 package com.daolayer.entity.orders;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
-@Data
-//@Table(name = "orders")
-@AllArgsConstructor
-public class Order {
-    private String productName;
+import javax.persistence.*;
+import java.time.LocalDate;
 
-    @Override
-    public String toString() {
-        return productName;
-    }
+@Data
+@Entity
+@Table(name = "orders")
+public class Order {
+    @Id
+    private Integer id;
+    private LocalDate date;
+    private String productName;
+    private Integer amount;
+
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
 }

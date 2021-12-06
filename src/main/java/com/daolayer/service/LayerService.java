@@ -14,7 +14,7 @@ public class LayerService {
         this.repository = repository;
     }
 
-    public String getFetchProduct(String name) {
+    public List getFetchProduct(String name) {
         return repository.getProductName(name);
     }
 

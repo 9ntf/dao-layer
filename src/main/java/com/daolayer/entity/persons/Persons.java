@@ -10,7 +10,6 @@ import javax.persistence.Entity;
 public class Persons {
     @EmbeddedId
     private Person person;
-
     private String phoneNumber;
     private String cityOfLiving;
 }

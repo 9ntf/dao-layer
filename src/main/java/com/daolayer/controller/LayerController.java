@@ -17,7 +17,7 @@ public class LayerController {
     }
 
     @GetMapping("/products/fetch-product")
-    public String getFetchProduct(@RequestParam("name") String name) {
+    public List getFetchProduct(@RequestParam("name") String name) {
         return service.getFetchProduct(name);
     }
 
