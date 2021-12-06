@@ -1,4 +1,4 @@
-GET localhost:8080/persons/by-city?city=vladivostok
+GET localhost:8080/persons/by-city?city=Vladivostok
 Accept: application/json
 
 ###

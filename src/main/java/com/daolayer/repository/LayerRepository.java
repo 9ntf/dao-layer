@@ -35,7 +35,7 @@ public class LayerRepository {
     @Transactional
     public List getPersonsByCity(String city) {
         Query query = entityManager.createQuery(myScriptPersons, Persons.class);
-        query.setParameter("cityOfLiving", city.toUpperCase());
+        query.setParameter("cityOfLiving", city);
         return query.getResultList();
     }
 
