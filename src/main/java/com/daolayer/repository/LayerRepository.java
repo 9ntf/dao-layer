@@ -40,7 +40,7 @@ public class LayerRepository {
 
     @Transactional
     public List getPersonsByAge(Integer age) {
-       return personRepository.findByHumanAgeLessThanOrderByHumanAge(age);
+       return personRepository.findByHumanAgeLessThanEqualOrderByHumanAge(age);
     }
 
     @Transactional

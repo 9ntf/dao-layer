@@ -13,7 +13,7 @@ public interface PersonRepository extends JpaRepository<Persons, Human> {
     List<Persons> findByCityOfLiving (String city);
 
     //Нахождение по возрасту и отсортировка
-    List<Persons> findByHumanAgeLessThanOrderByHumanAge(Integer age);
+    List<Persons> findByHumanAgeLessThanEqualOrderByHumanAge(Integer age);
 
     //Нахождение по имени и фамилии
     Optional<Persons> findByHumanNameAndHumanSurName(String name, String surName);
