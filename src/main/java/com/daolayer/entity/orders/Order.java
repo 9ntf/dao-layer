@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @Entity
@@ -15,7 +16,7 @@ public class Order {
     private String productName;
     private Integer amount;
 
-    @ManyToOne
-    @JoinColumn(name = "customer_id")
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "customers_id")
     private Customer customer;
 }

@@ -8,9 +8,9 @@ import java.io.Serializable;
 
 @Embeddable
 @Data
-public class Person implements Serializable {
+public class Human implements Serializable {
     private String name;
     @Column(name = "surname")
     private String surName;
-    private int age;
+    private Integer age;
 }

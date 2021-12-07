@@ -5,6 +5,7 @@ import com.daolayer.repository.LayerRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class LayerService {
@@ -20,5 +21,13 @@ public class LayerService {
 
     public List getPersonsByCity(String city) {
         return repository.getPersonsByCity(city);
+    }
+
+    public List getPersonsByAge(Integer age) {
+        return repository.getPersonsByAge(age);
+    }
+
+    public Optional getByNameAndSurName(String name, String surName) {
+        return repository.getByNameAndSurName(name, surName);
     }
 }

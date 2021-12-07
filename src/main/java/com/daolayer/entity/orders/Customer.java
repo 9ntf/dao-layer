@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Data
@@ -17,6 +18,6 @@ public class Customer {
     private Integer age;
     private String phoneNumber;
 
-    @OneToMany(mappedBy = "customer")
-    private Collection<Order> orders;
+    @OneToMany
+    private List<Order> order;
 }

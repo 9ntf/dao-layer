@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 @Entity
 public class Persons {
     @EmbeddedId
-    private Person person;
+    private Human human;
     private String phoneNumber;
     private String cityOfLiving;
 }

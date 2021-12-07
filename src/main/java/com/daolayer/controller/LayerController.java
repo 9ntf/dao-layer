@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class LayerController {
@@ -24,5 +25,15 @@ public class LayerController {
     @GetMapping("/persons/by-city")
     public List getPersonsByCity(@RequestParam("city") String city) {
         return service.getPersonsByCity(city);
+    }
+
+    @GetMapping("/persons/by-age")
+    public List getPersonsByAge(@RequestParam("age") Integer age) {
+        return service.getPersonsByAge(age);
+    }
+
+    @GetMapping("/persons/by-name")
+    public Optional getPersonByNameAndSurname(@RequestParam("name") String name, @RequestParam("surname") String surName) {
+        return service.getByNameAndSurName(name, surName);
     }
 }

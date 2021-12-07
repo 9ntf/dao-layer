@@ -2,6 +2,7 @@ package com.daolayer.repository;
 
 import com.daolayer.entity.orders.Order;
 import com.daolayer.entity.persons.Persons;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Repository;
 
@@ -14,37 +15,36 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
+import java.util.Locale;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
 public class LayerRepository {
-    private String myScriptOrders = read("myScriptOrders.sql");
-    private String myScriptPersons = read("myScriptPersons.sql");
+    @Autowired
+    PersonRepository personRepository;
 
-    @PersistenceContext
-    private EntityManager entityManager;
+    @Autowired
+    OrderRepository orderRepository;
 
-    @Transactional
+
+   @Transactional
     public List getProductName(String name) {
-        Query query = entityManager.createQuery(myScriptOrders, Order.class);
-        query.setParameter("name", name);
-        System.out.println(query.getResultList());
-        return query.getResultList();
+        return orderRepository.findByCustomerName(name);
     }
 
     @Transactional
     public List getPersonsByCity(String city) {
-        Query query = entityManager.createQuery(myScriptPersons, Persons.class);
-        query.setParameter("cityOfLiving", city.toUpperCase());
-        return query.getResultList();
+        return personRepository.findByCityOfLiving(city.toLowerCase());
     }
 
-    private static String read(String scriptFileName) {
-        try (InputStream is = new ClassPathResource(scriptFileName).getInputStream();
-             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is))) {
-            return bufferedReader.lines().collect(Collectors.joining("\n"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    @Transactional
+    public List getPersonsByAge(Integer age) {
+       return personRepository.findByHumanAgeLessThanOrderByHumanAge(age);
+    }
+
+    @Transactional
+    public Optional getByNameAndSurName(String name, String surName){
+       return personRepository.findByHumanNameAndHumanSurName(name, surName);
     }
 }

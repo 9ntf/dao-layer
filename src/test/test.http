@@ -4,3 +4,11 @@ Accept: application/json
 ###
 GET localhost:8080/products/fetch-product?name=Alex
 Accept: application/json
+
+###
+GET localhost:8080/persons/by-age?age=57
+Accept: application/json
+
+###
+GET localhost:8080/persons/by-name?name=Alex&surname=Alex
+Accept: application/json
